@@ -1,3 +1,5 @@
+**English** | [简体中文](README.zh-CN.md)
+
 # mihomo-traffic-logger
 
 Records how much traffic your Mihomo (Clash.Meta) core moves each day, so you can
