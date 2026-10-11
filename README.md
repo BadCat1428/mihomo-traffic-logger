@@ -82,10 +82,12 @@ external-controller: 127.0.0.1:9090
 secret: "pick-something"
 ```
 
-**Clash Verge Rev** — the app runs its core over a named pipe, not a TCP port, so
-`127.0.0.1:9097` will not answer even though it appears in the generated config.
-For the desktop client, run this tool against a core you expose yourself, or run
-it on the machine hosting a standalone mihomo.
+**Clash Verge Rev** — works, but needs one setting turned on first. The app blanks
+the address before handing the config to the core, so `127.0.0.1:9097` will not
+answer even though it appears in the generated config. Go to
+**Settings → External Controller**, enable **Enable External Controller**, and fill
+in an address (`127.0.0.1:9097` is fine) plus a secret. The core then listens on
+TCP like a standalone mihomo and the commands above work unchanged.
 
 Keep the controller bound to loopback. It is unauthenticated apart from the
 secret and grants full control of the core, including the ability to change
