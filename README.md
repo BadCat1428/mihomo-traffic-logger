@@ -82,12 +82,17 @@ external-controller: 127.0.0.1:9090
 secret: "pick-something"
 ```
 
-**Clash Verge Rev** — works, but needs one setting turned on first. The app blanks
-the address before handing the config to the core, so `127.0.0.1:9097` will not
-answer even though it appears in the generated config. Go to
-**Settings → External Controller**, enable **Enable External Controller**, and fill
-in an address (`127.0.0.1:9097` is fine) plus a secret. The core then listens on
-TCP like a standalone mihomo and the commands above work unchanged.
+**Clash Verge Rev** — works, but needs one setting turned on first. The app
+deliberately keeps its core on an IPC channel (a socket file on Unix, a named pipe
+on Windows) rather than a TCP port, and blanks the `external-controller` address
+before the core starts. That is why `127.0.0.1:9097` does not answer even though it
+appears in the generated config, and why the default is off: an exposed controller
+has been a real attack surface for this ecosystem.
+
+To use this tool with the desktop client, open **Settings → Clash Settings →
+External**, enable **Enable External Controller**, and set a valid API endpoint and
+a strong Core Secret. The core then listens on TCP like a standalone mihomo and the
+commands above work unchanged.
 
 Keep the controller bound to loopback. It is unauthenticated apart from the
 secret and grants full control of the core, including the ability to change
